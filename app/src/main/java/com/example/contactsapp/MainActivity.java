@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
     Button getButton;
     TextView resultView;
     Button dataBase;
-    RecyclerView recyclerView;
+    Spinner colorSpinner;
+    Button deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +37,21 @@ public class MainActivity extends AppCompatActivity {
         getButton=findViewById(R.id.getButton);
         resultView = findViewById(R.id.resultView);
         dataBase=findViewById(R.id.dataBase);
-        recyclerView=findViewById(R.id.recyclerView);
+        colorSpinner=findViewById(R.id.colorSpinner);
+        deleteButton=findViewById(R.id.deleteButton);
 
         control= new DatabaseControl(this);
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String flower=nameEdit.getText().toString();
+                control.open();
+                control.delete(flower);
+                control.close();
+                onResume();
+            }
+        });
 
         dataBase.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,24 +65,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 control.open();
-                String state =control.getState(nameEdit.getText().toString());
+                String flower =control.getFlower(nameEdit.getText().toString());
                 control.close();
-                resultView.setText(state);
+                resultView.setText(flower);
             }
         });
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name= nameEdit.getText().toString();
+                String flower= nameEdit.getText().toString();
                 String state =((TextView) spinner.getSelectedView()).getText().toString();
+                String color=((TextView) colorSpinner.getSelectedView()).getText().toString();
                 control.open();
-                boolean itWorked =control.insert(name,state);
+                boolean itWorked =control.insert(flower,state,color);
                 control.close();
-                if(itWorked)
-                    Toast.makeText(getApplicationContext(),"added "+name+" "+state,Toast.LENGTH_SHORT).show();
+                if(itWorked) //come back may need to add color here
+                    Toast.makeText(getApplicationContext(),"added "+flower+" "+state+color,Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(getApplicationContext(),"failed "+name+" "+state,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"failed "+flower+" "+state+color,Toast.LENGTH_SHORT).show();
+
+                onResume();
 
             }
         });
@@ -78,14 +94,17 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.colors, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        colorSpinner.setAdapter(adapter2);
     }
-    @Override
-    public void onResume(){
-        super.onResume();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        control.open();
-        String[] list=control.getAllNamesArray();
-        control.close();
-        recyclerView.setAdapter(new Adapter(list));
-    }
+//    @Override
+//    public void onResume(){
+//        super.onResume();
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        control.open();
+//        String[] list=control.getAllNamesArray();
+//        control.close();
+//        recyclerView.setAdapter(new Adapter(list));
+//    }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Contacts App</string>
+    <string name="app_name">Flower Database App</string>
     <string-array name="states">
         <item>AL</item>
         <item>AK</item>
@@ -51,5 +51,19 @@
         <item>WV</item>
         <item>WI</item>
         <item>WY</item>
+    </string-array>
+
+    <string-array name="colors">
+        <item>red</item>
+        <item>green</item>
+        <item>blue</item>
+        <item>yellow</item>
+        <item>red</item>
+        <item>orange</item>
+        <item>pink</item>
+        <item>white</item>
+        <item>black</item>
+        <item>purple</item>
+        <item>multi</item>
     </string-array>
 </resources>

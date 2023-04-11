@@ -24,31 +24,37 @@ public class DatabaseControl {
         helper.close();
     }
 
-    public boolean insert(String name, String state){
+    public boolean insert(String flower, String state, String color){
         ContentValues values = new ContentValues();
-        values.put("name", name);
+        values.put("flower", flower);
         values.put("state", state);
-        return database.insert("contact", null, values)>0;
+        values.put("color", color);
+        return database.insert("flowers", null, values)>0;
     }
 
-    public String getState(String name){
-        String query= "select state from contact where name=\""+name+"\"";
+    public void delete(String flower){
+        database.delete("flowers", "flower=\""+flower+"\"", null);
+    }
+
+    public String getFlower(String flower){
+        String query= "select state, color from flowers where flower=\""+flower+"\"";
         Cursor cursor= database.rawQuery(query,null);
         cursor.moveToFirst();
         String state = cursor.getString(0);
+        String color = cursor.getString(1);
         cursor.close();
-        return state;
+        return state +" "+ color;
     }
 
     public String[] getAllNamesArray(){
-        String query= "select name from contact";
+        String query= "select flower from flowers";
         Cursor cursor = database.rawQuery(query,null);
         cursor.moveToFirst();
         ArrayList<String> list = new ArrayList<String>();
         //while not at the end of the table
         while(!cursor.isAfterLast()){
-            String name= cursor.getString(0);
-            list.add(name);
+            String flower= cursor.getString(0);
+            list.add(flower);
             cursor.moveToNext();
         }
         cursor.close();

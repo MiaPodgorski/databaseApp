@@ -9,15 +9,16 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="117dp"
-        android:layout_height="227dp"
+        android:layout_width="187dp"
+        android:layout_height="252dp"
         android:layout_marginStart="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.463" />
+        app:layout_constraintVertical_bias="0.463"
+        tools:itemCount="@integer/material_motion_duration_short_1" />
 
     <TextView
         android:id="@+id/textView2"
@@ -25,10 +26,26 @@
         android:layout_height="wrap_content"
         android:text="Current Database"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#070707"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.486" />
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="150dp"
+        android:layout_height="58dp"
+        android:text="data"
+        android:textAlignment="center"
+        android:textColor="#050505"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+        app:layout_constraintVertical_bias="0.311" />
 </androidx.constraintlayout.widget.ConstraintLayout>
